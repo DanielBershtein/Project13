@@ -97,8 +97,6 @@ app.get("/api/login", async (req, res) => {
   }
 });
 
-app.post("/api/register", (req, res) => {});
-
 app.get("/api/userProducts/:id", async (req, res) => {
   try {
     console.log(req.params);
