@@ -105,13 +105,13 @@ function renderProducts(products) {
       ? "available-product"
       : "not-available-product";
     const btnId = product._id;
-    let btnQnt = `<button onclick='addToCart('${btnId}')'>Add</button>`;
+    let addBtn = `<button onclick="addToCart('${btnId}')">Add</button>`;
     let productItem = `
       <tr>
       <td>${product.name}</td>
       <td>${product.price}</td>
       <td class="${classNames}">${textContent}</td>
-      <td>${product.quantity === 0 ? "Out Of Stock" : btnQnt}</td>
+      <td>${product.quantity === 0 ? "Out Of Stock" : addBtn}</td>
       </tr>
       `;
     return productItem;
