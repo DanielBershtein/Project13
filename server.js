@@ -40,6 +40,7 @@ app.post("/api/register", async (req, res) => {
     let isPasswordValid = validator.isStrongPassword(password, {
       minLength: 5,
     });
+    console.log("hello");
 
     if (!isPasswordValid) {
       alert(
