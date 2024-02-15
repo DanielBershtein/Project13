@@ -207,3 +207,4 @@ async function updateProduct(btnId) {
 
 //! git add .
 //! git commit -m "*changes done*"
+//! git push -u origin main
