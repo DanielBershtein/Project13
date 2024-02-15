@@ -1,6 +1,6 @@
 const { MongoClient, ObjectId } = require("mongodb");
 
-const url = process.env.MONGO_URL;
+const url = process.env.MONGO_URI;
 const dbName = "svshop";
 
 const client = new MongoClient(url);
