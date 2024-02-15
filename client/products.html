@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Document</title>
+  </head>
+  <body onload="init()">
+    <button class="btn-logout" href="/">
+      <span class="btn-logoutspan" onclick="logout()">Logout</span>
+    </button>
+    <!-- <button class="btn-logout" onclick="logout()">Logout</button> -->
+    <div class="main-container">
+      <h1>Sv-Shop</h1>
+      <select class="filter-products">
+        <option value="all">Filter by...</option>
+        <option value="price">Price</option>
+        <option value="name">Name</option>
+      </select>
+      <button onclick="sort()">Sort</button>
+      <div class="flex-container">
+        <table>
+          <thead class="shopHead">
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Availability</th>
+              <th>Add to Cart</th>
+            </tr>
+          </thead>
+          <tbody class="shopTable"></tbody>
+        </table>
+
+        <table>
+          <thead class="cartHead">
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Amount</th>
+              <th>Add/Remove</th>
+            </tr>
+          </thead>
+          <tbody class="cartTable"></tbody>
+        </table>
+      </div>
+      <button class="btn-buy">Buy</button>
+    </div>
+    <script src="js/storageService.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
