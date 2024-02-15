@@ -204,3 +204,6 @@ async function updateProduct(btnId) {
 //! count = userProduct.quantity
 //! if + = count++
 //! push count to "amount"
+
+//! git add .
+//! git commit -m "*changes done*"
