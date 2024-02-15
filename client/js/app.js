@@ -175,7 +175,7 @@ function renderCart(products) {
       <td>${product.name}</td>
       <td>${product.price}</td>
       <td class="${classNames}">${textContent}</td>
-      <td><button>Add</button><button>Remove</button></td>
+      <td><button>+</button><button>-</button></td>
       </tr>
       `;
     return productItem;
@@ -201,3 +201,10 @@ async function updateProduct(btnId) {
     console.log(error);
   }
 }
+
+//! count = userProduct.quantity
+//! if + = count++
+//! push count to "amount"
+
+//! git add .
+//! git commit -m "*changes done*"
