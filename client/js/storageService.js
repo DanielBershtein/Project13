@@ -7,14 +7,20 @@ const USER_PRODUCT_KEY = "userProducts";
 const storageService = {
   getProducts() {
     const products = JSON.parse(localStorage.getItem(PRODUCT_KEY));
+    console.log(products);
+    console.log(typeof products);
+
     return products || [];
   },
   getOneProduct(productId) {
     const products = this.getProducts();
-    console.log(products);
+    console.log(typeof products);
+
     const productById = products.filter((product) => {
       product._id === productId;
     });
+    console.log(productById);
+
     return productById;
   },
   getUserProducts() {

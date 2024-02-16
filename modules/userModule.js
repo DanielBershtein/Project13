@@ -39,7 +39,7 @@ async function addProductToUser(userId, product) {
   try {
     const collection = await getCollection(entity);
     const user = await collection.findOne(toObjectId(userId));
-    console.log(product);
+    // product.amount= 1
     const result = await collection.updateOne(
       { _id: toObjectId(userId) },
       { $addToSet: { products: product } }
