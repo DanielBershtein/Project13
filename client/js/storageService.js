@@ -14,10 +14,12 @@ const storageService = {
   },
   getOneProduct(productId) {
     const products = this.getProducts();
-    console.log(typeof products);
+    console.log(products);
 
     const productById = products.filter((product) => {
-      product._id === productId;
+      if (product._id === productId) {
+        return product;
+      }
     });
     console.log(productById);
 
@@ -31,7 +33,15 @@ const storageService = {
     localStorage.setItem(PRODUCT_KEY, JSON.stringify(products));
   },
   setUserProducts(products) {
-    localStorage.setItem(USER_PRODUCT_KEY, JSON.stringify(products));
+    console.log(products);
+
+    const userProducts = localStorage.setItem(
+      USER_PRODUCT_KEY,
+      JSON.stringify(products)
+    );
+    console.log(userProducts);
+
+    return userProducts || [];
   },
   getUser() {
     const user = JSON.parse(localStorage.getItem(USER_KEY));
@@ -57,7 +67,10 @@ const storageService = {
   },
   addOneProduct(newProduct) {
     const products = this.getUserProducts();
+    console.log(products);
+
     products.push(newProduct);
+    console.log(products);
     this.setUserProducts(products);
   },
   removeOneProduct(productId) {

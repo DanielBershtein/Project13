@@ -66,19 +66,20 @@ async function init() {
   }
 
   const response = await fetch("/api/products");
-  const dataProducts = await response.json(); //!
+  const dataProducts = await response.json();
 
-  const productsMap = dataProducts.map((itemProduct) => {
-    if (itemProduct.quantity === 0) {
-      itemProduct.isAvailable === false;
-    }
-    return itemProduct;
-  });
+  // const productsMap = dataProducts.map((itemProduct) => {
+  //   if (itemProduct.quantity === 0) {
+  //     itemProduct.isAvailable === false;
+  //   }
+  //   return itemProduct;
+  // });
+  // console.log(productsMap);
+
+  storageService.setProducts(dataProducts);
+  renderProducts(dataProducts);
 
   const userProducts = storageService.getUserProducts();
-  storageService.setProducts(productsMap);
-  renderProducts(productsMap);
-
   if (userProducts.length > 0) {
     renderCart(userProducts);
   } else {
