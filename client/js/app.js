@@ -60,7 +60,6 @@ function logout() {
 
 async function init() {
   const user = storageService.getUser();
-  // storageService.setProducts();
   if (!user) {
     window.location.href = "login.html";
     return;
@@ -68,8 +67,6 @@ async function init() {
 
   const response = await fetch("/api/products");
   const dataProducts = await response.json(); //!
-  renderProducts(dataProducts);
-  storageService.setProducts(dataProducts);
 
   const productsMap = dataProducts.map((itemProduct) => {
     if (itemProduct.quantity === 0) {
@@ -79,12 +76,13 @@ async function init() {
   });
 
   const userProducts = storageService.getUserProducts();
-  console.log(userProducts); //!
+  storageService.setProducts(productsMap);
+  renderProducts(productsMap);
+
   if (userProducts.length > 0) {
     renderCart(userProducts);
   } else {
     const loadedProducts = user.products;
-    console.log(loadedProducts);
     if (loadedProducts || loadedProducts.length > 0) {
       storageService.setUserProducts(loadedProducts);
       renderCart(loadedProducts);
@@ -99,7 +97,6 @@ async function init() {
 
 function renderProducts(products) {
   const htmlProducts = products.map((product) => {
-    console.log(product.quantity);
     const textContent = product.isAvailable ? "Available" : "Not Available";
     const classNames = product.isAvailable
       ? "available-product"
@@ -157,10 +154,13 @@ function sort() {
 }
 
 async function addToCart(btnId) {
-  updateProduct(btnId);
+  console.log(btnId);
+
+  // await updateProduct(btnId);
   const selectedProduct = storageService.getOneProduct(btnId);
   storageService.addOneProduct(selectedProduct);
-  renderCart(selectedProduct);
+  const updatedCart = storageService.getUserProducts();
+  renderCart(updatedCart);
 }
 
 function renderCart(products) {
@@ -169,7 +169,6 @@ function renderCart(products) {
     const classNames = product.isAvailable
       ? "available-product"
       : "not-available-product";
-    const btnId = product._id;
     let productItem = `
       <tr>
       <td>${product.name}</td>
