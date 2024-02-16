@@ -50,6 +50,7 @@ async function getAllProducts() {
   try {
     const collection = await getCollection(entity);
     const products = await collection.find().toArray();
+
     return products;
   } catch (error) {
     throw error;

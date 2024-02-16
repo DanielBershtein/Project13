@@ -19,7 +19,8 @@ app.get("/", (req, res) => {
 app.get("/api/products", async (req, res) => {
   try {
     const products = await productModule.getAllProducts();
-    // console.log(products);
+    console.log(typeof products);
+
     return res.send(products);
   } catch (error) {
     console.log(error);
@@ -94,17 +95,6 @@ app.get("/api/login", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).send({ success: false, message: error.message });
-  }
-});
-
-app.get("/api/userProducts/:id", async (req, res) => {
-  try {
-    console.log(req.params);
-
-    const userProducts = await userModule.getUserProducts(req.params);
-    res.status(200).send({ success: true, userProducts });
-  } catch (error) {
-    console.log(error);
   }
 });
 
