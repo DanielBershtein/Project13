@@ -11,42 +11,41 @@
     <button class="btn-logout" href="/">
       <span class="btn-logoutspan" onclick="logout()">Logout</span>
     </button>
-    <!-- <button class="btn-logout" onclick="logout()">Logout</button> -->
-    <div class="main-container-products">
-      <h1>Sv-Shop</h1>
-      <select class="filter-products">
-        <option value="all">Filter by...</option>
-        <option value="price">Price</option>
-        <option value="name">Name</option>
-      </select>
-      <button class="sort-btn" onclick="sort()">Sort</button>
-      <div class="flex-container">
-        <table>
-          <thead class="shopHead">
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Availability</th>
-              <th>Add to Cart</th>
-            </tr>
-          </thead>
-          <tbody class="shopTable"></tbody>
-        </table>
 
-        <table>
-          <thead class="cartHead">
-            <tr>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Amount</th>
-              <th>Add/Remove</th>
-            </tr>
-          </thead>
-          <tbody class="cartTable"></tbody>
-        </table>
-      </div>
-      <button class="btn-buy">Buy</button>
-    </div>
+    <h1>Sv-Shop</h1>
+    <select class="filter-products">
+      <option value="all">Filter by...</option>
+      <option value="price">Price</option>
+      <option value="name">Name</option>
+    </select>
+    <button class="sort-btn" onclick="sort()">Sort</button>
+
+    <table>
+      <thead class="shopHead">
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Availability</th>
+          <th>Add to Cart</th>
+        </tr>
+      </thead>
+      <tbody class="shopTable"></tbody>
+    </table>
+
+    <table>
+      <thead class="cartHead">
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Amount</th>
+          <th>Add/Remove</th>
+        </tr>
+      </thead>
+      <tbody class="cartTable"></tbody>
+    </table>
+
+    <button class="btn-buy">Buy</button>
+
     <script src="js/storageService.js"></script>
     <script src="js/app.js"></script>
   </body>

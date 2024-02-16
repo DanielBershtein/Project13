@@ -97,6 +97,7 @@ body {
   text-decoration: none;
   width: 7em;
   z-index: 2;
+  margin-left: 85%;
 }
 
 .btn-logout:hover {
@@ -202,34 +203,42 @@ main {
   max-height: 400px;
   background-color: var(--bg-main);
   box-shadow: 0 0 7px 7px rgb(0 0 0 / 20%);
-  border-radius: 4px;
+  border-radius: 15px;
   color: white;
   padding: 20px;
   margin: 0 10px;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: purple white;
+  scrollbar-color: darkblue white;
 }
 
 .main-btn {
-  background: linear-gradient(to right, darkgreen, purple);
+  background: linear-gradient(to right, silver, #00bfff);
   color: white;
   border: 0;
-  padding: 10px;
+  padding: 15px;
   font-weight: bold;
   border-radius: 2px;
   cursor: pointer;
+  border-radius: 25px;
+  width: 50%;
+  margin: auto;
 }
 
 .signup-btn {
-  background: linear-gradient(to right, darkgreen, purple);
+  background: linear-gradient(to right, silver, rgb(0, 128, 255));
   color: white;
   border: 0;
-  padding: 10px;
+  padding: 15px;
   font-weight: bold;
   border-radius: 2px;
   cursor: pointer;
   margin-top: 10px;
+  border-radius: 25px;
+  position: relative;
+  width: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .main-container {
@@ -247,4 +256,22 @@ input {
   padding: 10px;
   color: white;
   width: 100%;
+  border-radius: 25px;
 }
+
+/* .products-main {
+  max-width: 600px;
+  width: 100%;
+  max-height: 400px;
+  background-color: var(--bg-main);
+  box-shadow: 0 0 7px 7px rgb(0 0 0 / 20%);
+  border-radius: 15px;
+  color: white;
+  padding: 20px;
+  margin: 0 10px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: darkblue white;
+  margin-bottom: 70%;
+  margin-left: 15%;
+} */
