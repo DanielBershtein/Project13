@@ -4,22 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>Main/Login page</title>
   </head>
   <body>
     <div class="main-container">
       <main>
-        <h1>Sv-Shop</h1>
-        <div class="user-input">
-          <label for="email">Email Address..</label>
-          <input type="email" id="email" placeholder="Enter your Email..." />
-          <label for="password">Password..</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your Password..."
-          />
-          <button onclick="signinClick()">Sign In</button>
+        <h1 class="header-main">Sv-Shop</h1>
+        <div class="main-div">
+          <div class="input-wrapper">
+            <label for="email">Email Address..</label>
+            <input type="email" id="email" placeholder="Enter your Email..." />
+          </div>
+
+          <div class="input-wrapper">
+            <label for="password">Password..</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your Password..."
+            />
+          </div>
+
+          <button class="main-btn" onclick="signinClick()">Sign In</button>
         </div>
 
         <small>

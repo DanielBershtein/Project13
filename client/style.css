@@ -1,3 +1,17 @@
+:root {
+  --bg-color: #e55c8a;
+  --bg-main: #3c424a;
+  --bg-input: #0000004d;
+  --bg-logout-btn: #f7d7e0;
+  --bg-login-btn: #eb2466;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 table,
 th,
 td {
@@ -7,6 +21,7 @@ td {
 
 body {
   background: linear-gradient(to right, lightblue, black);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .btn-buy {
@@ -146,4 +161,90 @@ body {
 
 .sort-btn:hover .text {
   background-image: linear-gradient(-45deg, #4568dc, #b06ab3);
+}
+
+.header-main {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.header-signup {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.main-div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+small {
+  text-align: center;
+  display: block;
+  padding-top: 10px;
+}
+
+small a {
+  cursor: pointer;
+  color: lightblue;
+}
+
+main {
+  max-width: 600px;
+  width: 100%;
+  max-height: 400px;
+  background-color: var(--bg-main);
+  box-shadow: 0 0 7px 7px rgb(0 0 0 / 20%);
+  border-radius: 4px;
+  color: white;
+  padding: 20px;
+  margin: 0 10px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: purple white;
+}
+
+.main-btn {
+  background: linear-gradient(to right, darkgreen, purple);
+  color: white;
+  border: 0;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.signup-btn {
+  background: linear-gradient(to right, darkgreen, purple);
+  color: white;
+  border: 0;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 2px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.main-container {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+input {
+  outline: none;
+  border: none;
+  background-color: var(--bg-input);
+  font-weight: bold;
+  padding: 10px;
+  color: white;
+  width: 100%;
 }

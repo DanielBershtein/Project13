@@ -10,24 +10,36 @@
   <body>
     <div class="main-container">
       <main>
-        <h1>Sv-Shop</h1>
-        <form onsubmit="signupClick(event)"> 
-          <label for="name">Name..</label>
-          <input type="text" id="name" placeholder="Enter your Name..." />
+        <h1 class="header-signup">Sv-Shop</h1>
+        <form onsubmit="signupClick(event)">
+          <div class="input-wrapper">
+            <label for="name">Name..</label>
+            <input type="text" id="name" placeholder="Enter your Name..." />
+          </div>
 
-          <label for="email">Email Address..</label>
-          <input type="email" id="email" placeholder="Enter your Email..." />
+          <div class="input-wrapper">
+            <label for="email">Email Address..</label>
+            <input type="email" id="email" placeholder="Enter your Email..." />
+          </div>
 
-          <label for="password">Password..</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your Password..."
-          />
-          <button>Signup</button>
+          <div class="input-wrapper">
+            <label for="password">Password..</label>
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your Password..."
+            />
+          </div>
+          <div class="input-wrapper">
+            <button class="signup-btn">Signup</button>
+          </div>
         </form>
-
-
+        <small>
+          Already have an account?
+          <a href="main.html">Login</a>
+        </small>
+      </main>
+    </div>
 
     <script src="js/storageService.js"></script>
     <script src="js/app.js"></script>
