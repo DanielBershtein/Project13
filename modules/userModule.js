@@ -22,11 +22,13 @@ async function addUser(username, password, email) {
   }
 }
 
-async function getUserByEmail(email) {
+async function getUserByEmail(email, userPassword) {
   try {
     const collection = await getCollection(entity);
     const user = await collection.findOne({ email });
     if (!user) throw new Error("Email Not found");
+    if (userPassword !== user.password)
+      throw new Error("Password Does Not Match");
     const { password, ...restUserDetails } = user;
     return restUserDetails;
   } catch (error) {
@@ -39,13 +41,11 @@ async function addProductToUser(userId, product) {
   try {
     const collection = await getCollection(entity);
     const user = await collection.findOne(toObjectId(userId));
-    // product.amount= 1
     const result = await collection.updateOne(
       { _id: toObjectId(userId) },
       { $addToSet: { products: product } }
     );
 
-    console.log(user);
     return user;
   } catch (err) {
     console.error("Error adding product to user:", err);
