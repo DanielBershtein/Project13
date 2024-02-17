@@ -106,7 +106,7 @@ function renderProducts(products) {
       <tr>
       <td>${product.name}</td>
       <td>${product.price}</td>
-      <td class="${classNames}>${textContent}</td>
+      <td class="${classNames}">${textContent}</td>
       <td>${product.quantity === 0 ? "Out Of Stock" : addBtn}</td>
       </tr>
       `;
