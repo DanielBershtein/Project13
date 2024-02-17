@@ -19,7 +19,6 @@ app.get("/", (req, res) => {
 app.get("/api/products", async (req, res) => {
   try {
     const products = await productModule.getAllProducts();
-    console.log(typeof products);
 
     return res.send(products);
   } catch (error) {
@@ -44,7 +43,7 @@ app.post("/api/register", async (req, res) => {
 
     if (!isPasswordValid) {
       alert(
-        "Passwoed must be 5-10 characters and contain at least one lower case, upper case, number and symbol!"
+        "Password must be 5-10 characters and contain at least one lower case, upper case, number and symbol!"
       );
       return;
     }
@@ -56,22 +55,21 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-app.post("/api/register", async (req, res) => {
-  try {
-    const { username, password, email } = req.body;
-    console.log(email, username, password);
-    await userModule.addUser(username, password, email);
-    res.send({ success: true });
-  } catch (error) {
-    console.log(error);
-    return res.status(400).send({ success: false, message: error.message });
-  }
-});
+// app.post("/api/register", async (req, res) => {
+//   try {
+//     const { username, password, email } = req.body;
+//     console.log(email, username, password);
+//     await userModule.addUser(username, password, email);
+//     res.send({ success: true });
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(400).send({ success: false, message: error.message });
+//   }
+// });
 
 app.get("/api/login", async (req, res) => {
   try {
     const { email, password } = req.query;
-    console.log(email, password);
     let isEmailValid = validator.isEmail(email);
     if (!isEmailValid) {
       return res.status(400).send("Email is Not Valid! Try Again 🤷‍♀️");
@@ -85,11 +83,11 @@ app.get("/api/login", async (req, res) => {
       return res
         .status(400)
         .send(
-          "Passwoed must be 5-10 characters and contain at least one lower case, upper case, number and symbol!"
+          "Password must be 5-10 characters and contain at least one lower case, upper case, number and symbol!"
         );
     }
 
-    const user = await userModule.getUserByEmail(email);
+    const user = await userModule.getUserByEmail(email, password);
 
     res.status(200).send({ success: true, user });
   } catch (error) {
