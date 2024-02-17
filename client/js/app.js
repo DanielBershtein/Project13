@@ -101,13 +101,15 @@ function renderProducts(products) {
       ? "available-product"
       : "not-available-product";
     const btnId = product._id;
-    let addBtn = `<button onclick="addToCart('${btnId}')">Add</button>`;
+    let addBtn = `<button class="add-to-cart-btn" onclick="addToCart('${btnId}')">Add</button>`;
     let productItem = `
       <tr>
-      <td>${product.name}</td>
-      <td>${product.price}</td>
-      <td class="${classNames}">${textContent}</td>
-      <td>${product.quantity === 0 ? "Out Of Stock" : addBtn}</td>
+      <td class="name-td-table">${product.name}</td>
+      <td class="price-td-table">${product.price}</td>
+      <td class="${classNames} avail-td-table">${textContent}</td>
+      <td class="add-to-cart-table">${
+        product.quantity === 0 ? "Out Of Stock" : addBtn
+      }</td>
       </tr>
       `;
     return productItem;
@@ -173,12 +175,12 @@ function renderCart(products) {
     const classNames = product.isAvailable
       ? "available-product"
       : "not-available-product";
-    let addBtn = `<button onclick="addQtn('${product._id}')">+</button>`;
-    let removeBtn = `<button onclick="removeQtn('${product._id}')">-</button>`;
+    let addBtn = `<button class="plus-minus" onclick="addQtn('${product._id}')">+</button>`;
+    let removeBtn = `<button class="plus-minus" onclick="removeQtn('${product._id}')">-</button>`;
     let productItem = `
       <tr>
-      <td>${product.name}</td>
-      <td>${product.price}</td>
+      <td class="name-td-cart">${product.name}</td>
+      <td class="price-td-cart">${product.price}</td>
       <td class="${classNames}">${product.amount}</td>
       <td>${addBtn}${removeBtn}</td>
       </tr>
