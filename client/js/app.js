@@ -108,7 +108,7 @@ function renderProducts(products) {
       <tr>
       <td>${product.name}</td>
       <td>${product.price}</td>
-      <td class="${classNames}">${textContent}</td>
+      <td class="${classNames}>${textContent}</td>
       <td>${product.quantity === 0 ? "Out Of Stock" : addBtn}</td>
       </tr>
       `;
@@ -174,7 +174,7 @@ function renderCart(products) {
       <tr>
       <td>${product.name}</td>
       <td>${product.price}</td>
-      <td class="${classNames}">${textContent}</td>
+      <td class="${classNames}>${textContent}</td>
       <td><button>+</button><button>-</button></td>
       </tr>
       `;
@@ -200,6 +200,16 @@ async function updateProduct(btnId) {
   } catch (error) {
     console.log(error);
   }
+}
+
+function cartBuy() {
+  document.querySelector(".btn-buy");
+  window.location.href = "/buy.html";
+}
+
+function placeOrder() {
+  document.querySelector(".order-btn");
+  window.location.href = "/main.html";
 }
 
 //! count = userProduct.name
