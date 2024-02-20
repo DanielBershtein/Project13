@@ -14,7 +14,6 @@ async function addUser(email, username, password) {
       password,
       email,
       isAdmin: false,
-      products: [],
     });
   } catch (error) {
     console.log(error);

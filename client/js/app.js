@@ -267,10 +267,13 @@ async function placeOrder() {
 
     const responseOrder = await fetch(`/api/all?isAdmin=${user.isAdmin}`);
     const dataOrder = await responseOrder.json();
+    console.log(dataOrder.orders);
+
     if (!dataOrder.success) {
       alert(dataOrder.message);
     }
-    localStorage.setItem("orders", dataOrder.orders.toString());
+    const orders = dataOrder.orders;
+    localStorage.setItem("orders", JSON.stringify(orders));
     window.location.href = "/orders.html";
   } catch (error) {
     console.log(error);
@@ -315,7 +318,9 @@ function searchProduct() {
 }
 
 function renderOrders() {
-  const orders = localStorage.getItem("orders");
+  const orders = JSON.parse(localStorage.getItem("orders"));
+  console.log(orders);
+
   const htmlOrders = orders.map((order) => {
     let productItem = `
         <tr>
