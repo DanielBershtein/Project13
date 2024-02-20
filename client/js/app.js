@@ -317,14 +317,23 @@ function searchProduct() {
   }
 }
 
-function renderOrders() {
+async function renderOrders() {
   try {
-    const response = await fetch("/api/register"
+    const response = await fetch("/api/orders");
+    const data = await response.json();
+
+    let productItem = `
+        <tr>
+        <td>${order._Id}</td>
+        <td>${user._Id}</td>
+        <td>${user.products}</td>
+        </tr>
+        `;
+    document.querySelector(".ordersTable").innerHTML = htmlOrders.join("");
+    return productItem;
   } catch (error) {
     console.log(error);
   }
-  
-  document.querySelector(".ordersTable").innerHTML = htmlProducts.join("");
 }
 
 //! count = userProduct.name
