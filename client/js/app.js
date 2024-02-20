@@ -201,6 +201,7 @@ function addQtn(productId) {
 
 function removeQtn(productId) {
   const selectedProduct = storageService.getOneUserProduct(productId);
+  updateCart(selectedProduct, 1, -1);
   if (selectedProduct.amount === 1) {
     updateCart(selectedProduct, 1, -1);
     storageService.removeOneUserProduct(selectedProduct._id);
@@ -322,9 +323,9 @@ function renderOrders() {
   const orders = JSON.parse(localStorage.getItem("orders"));
 
   const htmlOrders = orders.map((order) => {
-    let name = "";
+    let productInfo = "";
     for (let i = 0; i < order.cart.length; i++) {
-      name +=
+      productInfo +=
         order.cart[i].name + " " + "[" + order.cart[i].amount + "]" + " ,";
     }
 
@@ -332,7 +333,7 @@ function renderOrders() {
         <tr>
         <td>${order._id}</td>
         <td>${order.userId}</td>
-        <td>${name}</td>
+        <td>${productInfo}</td>
         </tr>
         `;
     return productItem;
