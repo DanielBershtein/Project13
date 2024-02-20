@@ -6,12 +6,15 @@ async function signinClick() {
     if (email === "" || password === "") {
       return;
     }
+    const credentials = { email, password };
 
     const response = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(email, password),
+      body: JSON.stringify(credentials),
     });
+    const data = await response.json();
+    console.log(data);
 
     if (!data.success) {
       alert(data.message);
@@ -217,7 +220,10 @@ function cartBuy() {
 }
 
 function initBuy() {
-  const totalPrice = localStorage.getItem("totalPrice");
+  const userProducts = storageService.getUserProducts();
+  const totalPrice = getTotalPrice(userProducts);
+  localStorage.setItem("totalPrice", totalPrice.toString());
+
   const totalAmount = amountOfProducts();
 
   document.querySelector(".total-price").innerHTML = totalPrice;
@@ -237,15 +243,14 @@ async function placeOrder() {
 
     const userId = storageService.getUser()._id;
 
-    const totalPrice = getTotalPrice(userProducts);
-    localStorage.setItem("totalPrice", totalPrice.toString());
+    const totalPrice = localStorage.getItem("totalPrice");
     const order = {
       userId,
       cart,
       totalPrice,
     };
 
-    const response = await fetch("/api/orders", {
+    const response = await fetch("/api/all", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(order),
@@ -255,9 +260,9 @@ async function placeOrder() {
 
     if (!data.success) {
       alert(data.message);
+      window.location.href = "/main.html";
       return;
     }
-    window.location.href = "/main.html";
   } catch (error) {
     console.log(error);
   }

@@ -5,6 +5,7 @@ const app = express();
 const path = require("path");
 const userModule = require("./modules/userModule.js");
 const productModule = require("./modules/productModule.js");
+const ordersModule = require("./modules/ordersModule.js");
 const validator = require("validator");
 const { nextTick } = require("process");
 const { isEmail, isMobilePhone } = validator;
@@ -13,10 +14,10 @@ app.use(express.static("client"));
 app.use(express.json());
 
 // app.use((req, res, next) => {
-//   if (req.url === "/query:admin=true") {
+//   if (req.url === "/api/all?isAdmin=true") {
 //     return res.redirect("/api/all");
 //   } else {
-//     res.status(400).send("error");
+//     res.redirect("/");
 //   }
 //   next();
 // });
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 app.get("/api/products", async (req, res) => {
   try {
     const products = await productModule.getAllProducts();
+    console.log(products);
 
     return res.send(products);
   } catch (error) {
@@ -62,14 +64,16 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-app.get("/api/all", async (req, res) => {
-  console.log("Hello");
-}); //!
-
 app.post("/api/login", async (req, res) => {
   try {
+    console.log(req.body);
+
     const { email, password } = req.body;
+    console.log(email, password);
+
     let isEmailValid = validator.isEmail(email);
+    console.log(isEmailValid);
+
     if (!isEmailValid) {
       return res
         .status(400)
@@ -79,6 +83,7 @@ app.post("/api/login", async (req, res) => {
     let isPasswordValid = validator.isStrongPassword(password, {
       minLength: 5,
     });
+    console.log(isPasswordValid);
 
     if (!isPasswordValid) {
       return res
@@ -108,9 +113,10 @@ app.put("/api/cart", async (req, res) => {
   }
 });
 
-app.post("/api/orders", async (req, res) => {
+app.post("/api/all", async (req, res) => {
   try {
-    const { order } = req.body;
+    const order = req.body;
+    console.log(order);
 
     await ordersModule.createOrder(order);
     res.send({ success: true });
