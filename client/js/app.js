@@ -240,7 +240,9 @@ async function placeOrder() {
       };
     });
 
-    const user = storageService.getUser()._id;
+    const user = storageService.getUser();
+    const userId = user._Id;
+    const isAdmin = user.isAdmin;
 
     const totalPrice = localStorage.getItem("totalPrice");
     const order = {
@@ -263,12 +265,14 @@ async function placeOrder() {
       return;
     }
 
-    const responseOrder = await fetch(`/api/all?isAdmin=${user.isAdmin}`);
-    const dataOrder = await response.json();
+    const responseOrder = await fetch(`/api/all?isAdmin=${isAdmin}`);
+    const dataOrder = await responseOrder.json();
+    console.log(dataOrder);
+
     if (!dataOrder.success) {
       alert(dataOrder.message);
     }
-    window.location = "/orders.html";
+    window.location.href = "/orders.html";
   } catch (error) {
     console.log(error);
   }
