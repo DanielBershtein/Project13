@@ -267,10 +267,12 @@ async function placeOrder() {
 
     const responseOrder = await fetch(`/api/all?isAdmin=${user.isAdmin}`);
     const dataOrder = await responseOrder.json();
+    console.log(dataOrder);
+
     if (!dataOrder.success) {
       alert(dataOrder.message);
     }
-    localStorage.setItem("orders", dataOrder.orders.toString());
+    localStorage.setItem("orders", dataOrder.orders);
     window.location.href = "/orders.html";
   } catch (error) {
     console.log(error);
@@ -315,18 +317,18 @@ function searchProduct() {
 }
 
 function renderOrders() {
-  const orders = localStorage.getItem("orders");
-  const htmlOrders = orders.map((order) => {
-    let productItem = `
-        <tr>
-        <td>${order._Id}</td>
-        <td>${order.userId}</td>
-        <td>${order.cart}</td>
-        </tr>
-        `;
-    return productItem;
-  });
-  document.querySelector(".ordersTable").innerHTML = htmlOrders.join("");
+  // const orders = localStorage.getItem("orders");
+  // const htmlOrders = orders.map((order) => {
+  //   let productItem = `
+  //       <tr>
+  //       <td>${order._Id}</td>
+  //       <td>${order.userId}</td>
+  //       <td>${order.cart}</td>
+  //       </tr>
+  //       `;
+  //   return productItem;
+  // });
+  // document.querySelector(".ordersTable").innerHTML = htmlOrders.join("");
 }
 //! count = userProduct.name
 //! if + = count++
