@@ -406,3 +406,13 @@ figure {
   margin-left: 90px;
   color: lightgreen;
 }
+
+#searchbar {
+  max-width: 200px;
+  margin-left: 18%;
+  margin-bottom: 10px;
+}
+
+#searchbar::placeholder {
+  color: black;
+}

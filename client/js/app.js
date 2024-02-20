@@ -279,7 +279,15 @@ function searchProduct() {
   }
 }
 
-async function ordersPage() {}
+function renderOrders() {
+  try {
+    const response = await fetch("/api/register"
+  } catch (error) {
+    console.log(error);
+  }
+  
+  document.querySelector(".ordersTable").innerHTML = htmlProducts.join("");
+}
 
 //! count = userProduct.name
 //! if + = count++

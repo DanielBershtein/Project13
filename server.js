@@ -12,14 +12,14 @@ const { isEmail, isMobilePhone } = validator;
 app.use(express.static("client"));
 app.use(express.json());
 
-app.use((req, res, next) => {
-  if (req.url === "/query:admin=true") {
-    return res.redirect("/api/all");
-  } else {
-    res.status(400).send(error.message);
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   if (req.url === "/query:admin=true") {
+//     return res.redirect("/api/all");
+//   } else {
+//     res.status(400).send("error");
+//   }
+//   next();
+// });
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "main.html"));
@@ -76,7 +76,9 @@ app.post("/api/register", async (req, res) => {
 //   }
 // });
 
-app.get("/api/all", async (req, res) => {}); //!
+app.get("/api/all", async (req, res) => {
+  console.log("Hello");
+}); //!
 
 app.get("/api/login", async (req, res) => {
   try {
