@@ -250,6 +250,7 @@ async function placeOrder() {
       cart,
       totalPrice,
     };
+    console.log(order);
 
     const response = await fetch("/api/all", {
       method: "POST",
@@ -319,14 +320,19 @@ function searchProduct() {
 
 function renderOrders() {
   const orders = JSON.parse(localStorage.getItem("orders"));
-  console.log(orders);
 
   const htmlOrders = orders.map((order) => {
+    let name = "";
+    for (let i = 0; i < order.cart.length; i++) {
+      name +=
+        order.cart[i].name + " " + "[" + order.cart[i].amount + "]" + " ,";
+    }
+
     let productItem = `
         <tr>
         <td>${order._id}</td>
         <td>${order.userId}</td>
-        <td>${order.cart}</td>
+        <td>${name}</td>
         </tr>
         `;
     return productItem;
