@@ -247,7 +247,6 @@ async function cartBuy() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ order, updatsedQtn }),
     });
-    מעולה;
     const data = await response.json();
 
     if (!data.success) {
