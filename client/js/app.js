@@ -270,6 +270,7 @@ async function placeOrder() {
     if (!dataOrder.success) {
       alert(dataOrder.message);
     }
+    localStorage.setItem("orders", dataOrder.orders.toString());
     window.location.href = "/orders.html";
   } catch (error) {
     console.log(error);
@@ -314,7 +315,8 @@ function searchProduct() {
 }
 
 function renderOrders() {
-  const htmlOrders = products.map((order) => {
+  const orders = localStorage.getItem("orders");
+  const htmlOrders = orders.map((order) => {
     let productItem = `
         <tr>
         <td>${order._Id}</td>
