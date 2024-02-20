@@ -12,6 +12,7 @@ async function signinClick() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(email, password),
     });
+    const data = await response.json();
 
     if (!data.success) {
       alert(data.message);
@@ -302,18 +303,19 @@ function searchProduct() {
 
 async function renderOrders() {
   try {
-    const response = await fetch("/api/orders");
+    const response = await fetch(`/api/all?isAdmin=${user.isAdmin}`);
     const data = await response.json();
-
-    let productItem = `
+    const htmlOrders = products.map((order) => {
+      let productItem = `
         <tr>
         <td>${order._Id}</td>
-        <td>${user._Id}</td>
-        <td>${user.products}</td>
+        <td>${order.userId}</td>
+        <td>${order.cart}</td>
         </tr>
         `;
-    document.querySelector(".ordersTable").innerHTML = htmlOrders.join("");
-    return productItem;
+      document.querySelector(".ordersTable").innerHTML = htmlOrders.join("");
+      return productItem;
+    });
   } catch (error) {
     console.log(error);
   }
