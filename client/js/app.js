@@ -240,7 +240,7 @@ async function placeOrder() {
       };
     });
 
-    const userId = storageService.getUser()._id;
+    const user = storageService.getUser()._id;
 
     const totalPrice = localStorage.getItem("totalPrice");
     const order = {
@@ -262,6 +262,13 @@ async function placeOrder() {
       window.location.href = "/main.html";
       return;
     }
+
+    const responseOrder = await fetch(`/api/all?isAdmin=${user.isAdmin}`);
+    const dataOrder = await response.json();
+    if (!dataOrder.success) {
+      alert(dataOrder.message);
+    }
+    window.location = "/orders.html";
   } catch (error) {
     console.log(error);
   }
@@ -304,26 +311,19 @@ function searchProduct() {
   }
 }
 
-async function renderOrders() {
-  try {
-    const response = await fetch(`/api/all?isAdmin=${user.isAdmin}`);
-    const data = await response.json();
-    const htmlOrders = products.map((order) => {
-      let productItem = `
+function renderOrders() {
+  const htmlOrders = products.map((order) => {
+    let productItem = `
         <tr>
         <td>${order._Id}</td>
         <td>${order.userId}</td>
         <td>${order.cart}</td>
         </tr>
         `;
-      document.querySelector(".ordersTable").innerHTML = htmlOrders.join("");
-      return productItem;
-    });
-  } catch (error) {
-    console.log(error);
-  }
+    return productItem;
+  });
+  document.querySelector(".ordersTable").innerHTML = htmlOrders.join("");
 }
-
 //! count = userProduct.name
 //! if + = count++
 //!removeOneProduct

@@ -116,7 +116,6 @@ app.put("/api/cart", async (req, res) => {
 app.post("/api/all", async (req, res) => {
   try {
     const order = req.body;
-    console.log(order);
 
     await ordersModule.createOrder(order);
     res.send({ success: true });
@@ -132,9 +131,9 @@ app.get("/api/all", async (req, res) => {
       res.redirect("/");
     }
     const orders = await ordersModule.getAllOrders();
-    res.send(orders);
+    res.send({ success: true, orders });
   } catch (error) {
-    console.log(error);
+    return res.status(400).send({ success: false, message: error.message });
   }
 });
 
