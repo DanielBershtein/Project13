@@ -125,6 +125,19 @@ app.post("/api/all", async (req, res) => {
   }
 });
 
+app.get("/api/all", async (req, res) => {
+  try {
+    const isAdmin = req.query;
+    if (!isAdmin) {
+      res.redirect("/");
+    }
+    const orders = await ordersModule.getAllOrders();
+    res.send(orders);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
