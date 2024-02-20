@@ -71,6 +71,7 @@ const storageService = {
     localStorage.removeItem(USER_KEY);
     localStorage.removeItem(PRODUCT_KEY);
     localStorage.removeItem(USER_PRODUCT_KEY);
+    localStorage.removeItem("totalPrice");
   },
   toggleDone(productId) {
     const products = this.getProducts();
