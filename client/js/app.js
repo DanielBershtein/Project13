@@ -266,7 +266,7 @@ async function placeOrder() {
     }
 
     const responseOrder = await fetch(`/api/all?isAdmin=${user.isAdmin}`);
-    const dataOrder = await response.json();
+    const dataOrder = await responseOrder.json();
     if (!dataOrder.success) {
       alert(dataOrder.message);
     }

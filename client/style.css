@@ -416,3 +416,8 @@ figure {
 #searchbar::placeholder {
   color: black;
 }
+
+.h1-orders {
+  margin-left: 30%;
+  margin-bottom: 10px;
+}
