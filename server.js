@@ -12,14 +12,14 @@ const { isEmail, isMobilePhone } = validator;
 app.use(express.static("client"));
 app.use(express.json());
 
-app.use((req, res, next) => {
-  if (req.url === "/query:admin=true") {
-    return res.redirect("/api/all");
-  } else {
-    res.status(400).send(error.message);
-  }
-  next();
-});
+// app.use((req, res, next) => {
+//   if (req.url === "/query:admin=true") {
+//     return res.redirect("/api/all");
+//   } else {
+//     res.status(400).send(error.message);
+//   }
+//   next();
+// });
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "main.html"));
@@ -115,6 +115,16 @@ app.put("/api/cart", async (req, res) => {
     return res.send(updatedUser);
   } catch (error) {
     console.log(error);
+  }
+});
+
+app.post("/api/orders", async (req, res) => {
+  try {
+    const { updatsedQtn, orders } = req.body;
+    await orderModule.updateQtn(updatsedQtn);
+    res.send({ success: true });
+  } catch (error) {
+    return res.status(400).send({ success: false, message: error.message });
   }
 });
 
