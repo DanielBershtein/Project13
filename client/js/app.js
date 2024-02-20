@@ -241,7 +241,7 @@ async function placeOrder() {
     });
 
     const user = storageService.getUser();
-    const userId = user._id;
+    const userId = user._Id;
     const isAdmin = user.isAdmin;
 
     const totalPrice = localStorage.getItem("totalPrice");
@@ -265,9 +265,8 @@ async function placeOrder() {
       return;
     }
 
-    const responseOrder = await fetch(`/api/all?isAdmin=${isAdmin}`);
-    const dataOrder = await responseOrder.json();
-
+    const responseOrder = await fetch(`/api/all?isAdmin=${user.isAdmin}`);
+    const dataOrder = await response.json();
     if (!dataOrder.success) {
       alert(dataOrder.message);
     }
