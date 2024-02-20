@@ -13,4 +13,13 @@ async function getAllOrders() {
   }
 }
 
-module.exports = { getAllOrders };
+async function createOrder(order) {
+  try {
+    const collection = await getCollection(entity);
+    collection.insertOne(order);
+  } catch (error) {
+    throw error;
+  }
+}
+
+module.exports = { getAllOrders, createOrder };

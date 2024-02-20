@@ -240,26 +240,15 @@ async function cartBuy() {
     const products = storageService.getProducts();
     const updatsedQtn = products.map((product) => product.quantity);
 
-    const orders = { userId, products: [productsName, productsAmount] };
+    const order = { userId, products: [productsName, productsAmount] };
 
-    // const responsePut = await fetch(`/api/orders/${updatsedQtn}`, {
-    //   method: "PUT",
-    //   headers: { "Content-Type": "application/json" },
-    // });
-
-    // const dataPut = await response.json();
-    // if (!data.success) {
-    //   alert(error.message);
-    //   return;
-    // }
-
-    const responsePost = await fetch("/api/orders", {
+    const response = await fetch("/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ orders, updatsedQtn }),
+      body: JSON.stringify({ order, updatsedQtn }),
     });
-
-    const dataPost = await response.json();
+    מעולה;
+    const data = await response.json();
 
     if (!data.success) {
       alert(data.message);
@@ -317,15 +306,15 @@ function searchProduct() {
   }
 }
 
-function renderOrders() {
-  try {
-    const response = await fetch("/api/register"
-  } catch (error) {
-    console.log(error);
-  }
-  
-  document.querySelector(".ordersTable").innerHTML = htmlProducts.join("");
-}
+// function renderOrders() {
+//   try {
+//     const response = await fetch("/api/register"
+//   } catch (error) {
+//     console.log(error);
+//   }
+
+//   document.querySelector(".ordersTable").innerHTML = htmlProducts.join("");
+// }
 
 //! count = userProduct.name
 //! if + = count++

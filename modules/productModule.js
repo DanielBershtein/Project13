@@ -81,8 +81,18 @@ async function getProductById(productId) {
   }
 }
 
+async function updateQtn(updatsedQtn) {
+  try {
+    const collection = await getCollection(entity);
+    await collection.updateMany({}, { $set: { quantity: updateQtn } });
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
   getProductById,
+  updateQtn,
 };
