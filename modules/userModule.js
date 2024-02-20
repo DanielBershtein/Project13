@@ -2,7 +2,7 @@ const { getCollection, toObjectId } = require("./dbModule");
 
 const entity = "users";
 
-async function addUser(username, password, email) {
+async function addUser(email, username, password) {
   try {
     const collection = await getCollection(entity);
     const existUser = await collection.findOne({ username });
@@ -13,7 +13,7 @@ async function addUser(username, password, email) {
       username,
       password,
       email,
-      isAdminTrue: false,
+      isAdmin: false,
       products: [],
     });
   } catch (error) {

@@ -6,10 +6,12 @@ async function signinClick() {
     if (email === "" || password === "") {
       return;
     }
-    const response = await fetch(
-      `/api/login?email=${email}&password=${password}`
-    );
-    const data = await response.json();
+
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(email, password),
+    });
 
     if (!data.success) {
       alert(data.message);
@@ -63,13 +65,18 @@ async function init() {
     window.location.href = "login.html";
     return;
   }
+  const products = storageService.getProducts();
+  if (products.length === 0) {
+    const response = await fetch("/api/products");
+    const data = await response.json();
+    storageService.setProducts(data);
+    renderProducts(data);
+    return;
+  }
 
-  const response = await fetch("/api/products");
-  const dataProducts = await response.json();
-
-  const productsMap = dataProducts.map((itemProduct) => {
+  const productsMap = products.map((itemProduct) => {
     if (itemProduct.quantity === 0) {
-      itemProduct.isAvailable === false;
+      itemProduct.isAvailable = false;
     }
     return itemProduct;
   });
@@ -80,12 +87,6 @@ async function init() {
   const userProducts = storageService.getUserProducts();
   if (userProducts.length > 0) {
     renderCart(userProducts);
-  } else {
-    const loadedProducts = user.products;
-    if (loadedProducts || loadedProducts.length > 0) {
-      storageService.setUserProducts(loadedProducts);
-      renderCart(loadedProducts);
-    }
   }
 }
 
@@ -154,11 +155,9 @@ function sort() {
   return;
 }
 
-function updateCart(productId, num1, num2) {
-  // await updateProduct(btnId);
-  const selectedProduct = storageService.getOneProduct(productId);
+function updateCart(selectedProduct, num1, num2) {
   storageService.updateOneProduct(selectedProduct, num2);
-  storageService.updateProductQnt(productId, num1);
+  storageService.updateProductQnt(selectedProduct._id, num1);
 
   const updatedCart = storageService.getUserProducts();
   renderCart(updatedCart);
@@ -166,8 +165,9 @@ function updateCart(productId, num1, num2) {
 
 function addToCart(btnId) {
   const selectedProduct = storageService.getOneProduct(btnId);
-  if (selectedProduct.quantity === 0) return;
-  updateCart(btnId, -1, 1);
+  if (selectedProduct.quantity === 0)
+    return alert(`No more ${searchProduct.name} left!`);
+  updateCart(selectedProduct, -1, 1);
 }
 
 function renderCart(products) {
@@ -194,14 +194,14 @@ function renderCart(products) {
 function addQtn(productId) {
   const selectedProduct = storageService.getOneProduct(productId);
   if (selectedProduct.quantity === 0) return;
-  updateCart(productId, -1, 1);
+  updateCart(selectedProduct, -1, 1);
 }
 
 function removeQtn(productId) {
   const selectedProduct = storageService.getOneUserProduct(productId);
   if (selectedProduct.amount === 1) {
-    updateCart(productId, 1, -1);
-    storageService.removeOneUserProduct(productId);
+    updateCart(selectedProduct, 1, -1);
+    storageService.removeOneUserProduct(selectedProduct._id);
     const products = storageService.getUserProducts();
     renderCart(products);
     return;
@@ -210,84 +210,79 @@ function removeQtn(productId) {
   updateCart(productId, 1, -1);
 }
 
-async function updateProduct(btnId) {
-  try {
-    const userId = storageService.getUser()._id;
-    console.log(userId);
-    const response = await fetch(
-      `/api/cart?userId=${userId}&productId=${btnId}`,
-      {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    const data = await response.json();
-    storageService.setUserProducts(data.products);
-  } catch (error) {
-    console.log(error);
-  }
+function cartBuy() {
+  document.querySelector(".btn-buy");
+
+  window.location.href = "/buy.html";
 }
 
-async function cartBuy() {
+function initBuy() {
+  const totalPrice = localStorage.getItem("totalPrice");
+  const totalAmount = amountOfProducts();
+
+  document.querySelector(".total-price").innerHTML = totalPrice;
+  document.querySelector(".amount-of-products").innerHTML = totalAmount;
+}
+
+async function placeOrder() {
   try {
-    document.querySelector(".btn-buy");
+    document.querySelector(".order-btn");
     const userProducts = storageService.getUserProducts();
-    const productsName = userProducts.map((product) => product.name);
-    const productsAmount = userProducts.map((product) => product.amount);
+    const cart = userProducts.map((product) => {
+      return {
+        name: product.name,
+        amount: product.amount,
+      };
+    });
 
     const userId = storageService.getUser()._id;
 
-    const products = storageService.getProducts();
-    const updatsedQtn = products.map((product) => product.quantity);
-
-    const order = { userId, products: [productsName, productsAmount] };
+    const totalPrice = getTotalPrice(userProducts);
+    localStorage.setItem("totalPrice", totalPrice.toString());
+    const order = {
+      userId,
+      cart,
+      totalPrice,
+    };
 
     const response = await fetch("/api/orders", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ order, updatsedQtn }),
+      body: JSON.stringify(order),
     });
+
     const data = await response.json();
 
     if (!data.success) {
       alert(data.message);
       return;
     }
-
-    window.location.href = "/buy.html";
+    window.location.href = "/main.html";
   } catch (error) {
     console.log(error);
   }
-}
-
-function placeOrder() {
-  document.querySelector(".order-btn");
-  window.location.href = "/main.html";
 }
 
 function amountOfProducts() {
   const userProducts = storageService.getUserProducts();
   const amountProducts = userProducts.map((product) => product.amount);
   const total = amountProducts.reduce((acc, curr) => acc + curr);
-  console.log(total);
-  document.querySelector(".amount-of-products").innerHTML = total;
+
   return total;
 }
-// console.log(userProducts.length);
-// return userProducts.length;
 
-function totalPrice() {
-  const userProducts = storageService.getUserProducts();
-  const prices = userProducts.map((product) => product.price);
-  const total = prices.reduce((acc, curr) => acc + curr);
+function getTotalPrice(userProducts) {
+  let total = 0;
+  for (let i = 0; i < userProducts.length; i++) {
+    let productPrice = userProducts[i].price * userProducts[i].amount;
+    total += productPrice;
+  }
   //! another way:::: const totalPrice = userProducts.reduce((acc, curr) => acc + curr.price, 0);
   //! console.log(totalPrice)
-  console.log(total);
-  document.querySelector(".total-price").innerHTML = total;
+
   return total;
 }
 
-// searchProduct();
 function searchProduct() {
   const allProducts = storageService.getProducts();
   let input = document.getElementById("searchbar").value;

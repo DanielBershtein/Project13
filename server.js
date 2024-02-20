@@ -42,8 +42,7 @@ app.post("/api/register", async (req, res) => {
 
     let isEmailValid = validator.isEmail(email);
     if (!isEmailValid) {
-      alert("Email is Not Valid! Try Again 🤷‍♀️");
-      return;
+      throw new Error("Email is Not Valid! Try Again 🤷‍♀️");
     }
 
     let isPasswordValid = validator.isStrongPassword(password, {
@@ -51,10 +50,9 @@ app.post("/api/register", async (req, res) => {
     });
 
     if (!isPasswordValid) {
-      alert(
+      throw new Error(
         "Password must be 5-10 characters and contain at least one lower case, upper case, number and symbol!"
       );
-      return;
     }
     await userModule.addUser(email, username, password);
     res.send({ success: true });
@@ -64,28 +62,18 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-// app.post("/api/register", async (req, res) => {
-//   try {
-//     const { username, password, email } = req.body;
-//     console.log(email, username, password);
-//     await userModule.addUser(username, password, email);
-//     res.send({ success: true });
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(400).send({ success: false, message: error.message });
-//   }
-// });
-
 app.get("/api/all", async (req, res) => {
   console.log("Hello");
 }); //!
 
-app.get("/api/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   try {
-    const { email, password } = req.query;
+    const { email, password } = req.body;
     let isEmailValid = validator.isEmail(email);
     if (!isEmailValid) {
-      return res.status(400).send("Email is Not Valid! Try Again 🤷‍♀️");
+      return res
+        .status(400)
+        .send({ success: false, msg: "Email is Not Valid! Try Again 🤷‍♀️" });
     }
 
     let isPasswordValid = validator.isStrongPassword(password, {
@@ -122,8 +110,8 @@ app.put("/api/cart", async (req, res) => {
 
 app.post("/api/orders", async (req, res) => {
   try {
-    const { updatsedQtn, order } = req.body;
-    await productModule.updateQtn(updatsedQtn);
+    const { order } = req.body;
+
     await ordersModule.createOrder(order);
     res.send({ success: true });
   } catch (error) {

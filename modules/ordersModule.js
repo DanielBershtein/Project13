@@ -16,7 +16,7 @@ async function getAllOrders() {
 async function createOrder(order) {
   try {
     const collection = await getCollection(entity);
-    collection.insertOne(order);
+    await collection.insertOne(order);
   } catch (error) {
     throw error;
   }
