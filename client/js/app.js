@@ -241,7 +241,7 @@ async function placeOrder() {
     });
 
     const user = storageService.getUser();
-    const userId = user._Id;
+    const userId = user._id;
     const isAdmin = user.isAdmin;
 
     const totalPrice = localStorage.getItem("totalPrice");
@@ -265,7 +265,7 @@ async function placeOrder() {
       return;
     }
 
-    const responseOrder = await fetch(`/api/all?isAdmin=${user.isAdmin}`);
+    const responseOrder = await fetch(`/api/all?isAdmin=${isAdmin}`);
     const dataOrder = await responseOrder.json();
     console.log(dataOrder.orders);
 
@@ -324,13 +324,14 @@ function renderOrders() {
   const htmlOrders = orders.map((order) => {
     let productItem = `
         <tr>
-        <td>${order._Id}</td>
+        <td>${order._id}</td>
         <td>${order.userId}</td>
         <td>${order.cart}</td>
         </tr>
         `;
     return productItem;
   });
+
   document.querySelector(".ordersTable").innerHTML = htmlOrders.join("");
 }
 //! count = userProduct.name
