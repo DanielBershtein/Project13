@@ -201,6 +201,7 @@ function addQtn(productId) {
 
 function removeQtn(productId) {
   const selectedProduct = storageService.getOneUserProduct(productId);
+  updateCart(selectedProduct, 1, -1);
   if (selectedProduct.amount === 1) {
     updateCart(selectedProduct, 1, -1);
     storageService.removeOneUserProduct(selectedProduct._id);
