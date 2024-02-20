@@ -122,8 +122,9 @@ app.put("/api/cart", async (req, res) => {
 
 app.post("/api/orders", async (req, res) => {
   try {
-    const { updatsedQtn, orders } = req.body;
-    await orderModule.updateQtn(updatsedQtn);
+    const { updatsedQtn, order } = req.body;
+    await productModule.updateQtn(updatsedQtn);
+    await ordersModule.createOrder(order);
     res.send({ success: true });
   } catch (error) {
     return res.status(400).send({ success: false, message: error.message });
