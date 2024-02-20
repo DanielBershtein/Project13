@@ -120,6 +120,16 @@ app.put("/api/cart", async (req, res) => {
   }
 });
 
+app.post("/api/orders", async (req, res) => {
+  try {
+    const { updatsedQtn, orders } = req.body;
+    await orderModule.updateQtn(updatsedQtn);
+    res.send({ success: true });
+  } catch (error) {
+    return res.status(400).send({ success: false, message: error.message });
+  }
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

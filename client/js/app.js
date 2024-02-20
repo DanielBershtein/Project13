@@ -228,9 +228,48 @@ async function updateProduct(btnId) {
   }
 }
 
-function cartBuy() {
-  document.querySelector(".btn-buy");
-  window.location.href = "/buy.html";
+async function cartBuy() {
+  try {
+    document.querySelector(".btn-buy");
+    const userProducts = storageService.getUserProducts();
+    const productsName = userProducts.map((product) => product.name);
+    const productsAmount = userProducts.map((product) => product.amount);
+
+    const userId = storageService.getUser()._id;
+
+    const products = storageService.getProducts();
+    const updatsedQtn = products.map((product) => product.quantity);
+
+    const orders = { userId, products: [productsName, productsAmount] };
+
+    // const responsePut = await fetch(`/api/orders/${updatsedQtn}`, {
+    //   method: "PUT",
+    //   headers: { "Content-Type": "application/json" },
+    // });
+
+    // const dataPut = await response.json();
+    // if (!data.success) {
+    //   alert(error.message);
+    //   return;
+    // }
+
+    const responsePost = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orders, updatsedQtn }),
+    });
+
+    const dataPost = await response.json();
+
+    if (!data.success) {
+      alert(data.message);
+      return;
+    }
+
+    window.location.href = "/buy.html";
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function placeOrder() {
@@ -249,8 +288,6 @@ function amountOfProducts() {
 // console.log(userProducts.length);
 // return userProducts.length;
 
-amountOfProducts();
-
 function totalPrice() {
   const userProducts = storageService.getUserProducts();
   const prices = userProducts.map((product) => product.price);
@@ -261,14 +298,15 @@ function totalPrice() {
   document.querySelector(".total-price").innerHTML = total;
   return total;
 }
-totalPrice();
 
-searchProduct();
+// searchProduct();
 function searchProduct() {
   const allProducts = storageService.getProducts();
   let input = document.getElementById("searchbar").value;
   input = input.toLowerCase();
   const names = allProducts.map((product) => product.name);
+  console.log(names);
+
   const tableNames = document.querySelector(".name-td-table");
   for (i = 0; i < tableNames.length; i++) {
     if (product.name[0] === input[0] && product.name[1] === input[1]) {
