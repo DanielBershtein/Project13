@@ -238,6 +238,49 @@ function placeOrder() {
   window.location.href = "/main.html";
 }
 
+function amountOfProducts() {
+  const userProducts = storageService.getUserProducts();
+  const amountProducts = userProducts.map((product) => product.amount);
+  const total = amountProducts.reduce((acc, curr) => acc + curr);
+  console.log(total);
+  document.querySelector(".amount-of-products").innerHTML = total;
+  return total;
+}
+// console.log(userProducts.length);
+// return userProducts.length;
+
+amountOfProducts();
+
+function totalPrice() {
+  const userProducts = storageService.getUserProducts();
+  const prices = userProducts.map((product) => product.price);
+  const total = prices.reduce((acc, curr) => acc + curr);
+  //! another way:::: const totalPrice = userProducts.reduce((acc, curr) => acc + curr.price, 0);
+  //! console.log(totalPrice)
+  console.log(total);
+  document.querySelector(".total-price").innerHTML = total;
+  return total;
+}
+totalPrice();
+
+searchProduct();
+function searchProduct() {
+  const allProducts = storageService.getProducts();
+  let input = document.getElementById("searchbar").value;
+  input = input.toLowerCase();
+  const names = allProducts.map((product) => product.name);
+  const tableNames = document.querySelector(".name-td-table");
+  for (i = 0; i < tableNames.length; i++) {
+    if (product.name[0] === input[0] && product.name[1] === input[1]) {
+      product.name.style.display = "table-cell";
+    } else {
+      product.name.style.display = "none";
+    }
+  }
+}
+
+async function ordersPage() {}
+
 //! count = userProduct.name
 //! if + = count++
 //!removeOneProduct
