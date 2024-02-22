@@ -1,3 +1,4 @@
+//! --------------------------------------- Sign In Page --------------------------------------
 async function signinClick() {
   try {
     const email = document.getElementById("email").value;
@@ -27,7 +28,7 @@ async function signinClick() {
     alert(error.message);
   }
 }
-
+//! -----------------------------------Sign Up Page --------------------------------------------
 async function signupClick(event) {
   try {
     event.preventDefault();
@@ -56,6 +57,7 @@ async function signupClick(event) {
   }
 }
 
+//! ------------------------------------------ Products Page ----------------------------------
 function logout() {
   storageService.clearAll();
   window.location.href = "main.html";
@@ -91,11 +93,6 @@ async function init() {
     renderCart(userProducts);
   }
 }
-
-//! const response2 = await fetch("/api/cart")
-//! const userProducts = await response.json()
-//! renderCart(userProducts)
-//! storageService.setUserProducts(userProducts)
 
 function renderProducts(products) {
   const htmlProducts = products.map((product) => {
@@ -183,7 +180,7 @@ function renderCart(products) {
       <tr>
       <td class="name-td-cart">${product.name}</td>
       <td class="price-td-cart">${product.price}</td>
-      <td class="${classNames}">${product.amount}</td>
+      <td class="${classNames} cart-td-amount">${product.amount}</td>
       <td>${addBtn}${removeBtn}</td>
       </tr>
       `;
@@ -219,6 +216,7 @@ function cartBuy() {
   window.location.href = "/buy.html";
 }
 
+//! ------------------------------------------- Buy Page ---------------------------------------
 function initBuy() {
   const userProducts = storageService.getUserProducts();
   const totalPrice = getTotalPrice(userProducts);
@@ -301,24 +299,7 @@ function getTotalPrice(userProducts) {
 
   return total;
 }
-
-function searchProduct() {
-  const allProducts = storageService.getProducts();
-  let input = document.getElementById("searchbar").value;
-  input = input.toLowerCase();
-  const names = allProducts.map((product) => product.name);
-  console.log(names);
-
-  const tableNames = document.querySelector(".name-td-table");
-  for (i = 0; i < tableNames.length; i++) {
-    if (product.name[0] === input[0] && product.name[1] === input[1]) {
-      product.name.style.display = "table-cell";
-    } else {
-      product.name.style.display = "none";
-    }
-  }
-}
-
+//! ------------------------------------------- Orders Page ------------------------------------
 function renderOrders() {
   const orders = JSON.parse(localStorage.getItem("orders"));
 
@@ -331,9 +312,9 @@ function renderOrders() {
 
     let productItem = `
         <tr>
-        <td>${order._id}</td>
-        <td>${order.userId}</td>
-        <td>${productInfo}</td>
+        <td class="orderId-td">${order._id}</td>
+        <td class="order-user-td">${order.userId}</td>
+        <td class="order-products-td">${productInfo}</td>
         </tr>
         `;
     return productItem;
@@ -341,13 +322,8 @@ function renderOrders() {
 
   document.querySelector(".ordersTable").innerHTML = htmlOrders.join("");
 }
-//! count = userProduct.name
-//! if + = count++
-//!removeOneProduct
-//! DELETE to server to update mongo
-//! push count to "amount"
 
 //! git add .
 //! git commit -m "*changes done*"
 //! git pull
-//! git push -u origin main
+//! git push

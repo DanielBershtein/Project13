@@ -25,7 +25,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "main.html"));
 });
-
+//! -------------------------------------------------- Products ---------------------------------
 app.get("/api/products", async (req, res) => {
   try {
     const products = await productModule.getAllProducts();
@@ -37,7 +37,7 @@ app.get("/api/products", async (req, res) => {
     return res.status(400).send({ success: false, message: error.message });
   }
 });
-
+//! -------------------------------------------------- Register ---------------------------------
 app.post("/api/register", async (req, res) => {
   try {
     const { email, username, password } = req.body;
@@ -63,7 +63,7 @@ app.post("/api/register", async (req, res) => {
     return res.status(400).send({ success: false, message: error.message });
   }
 });
-
+//! ----------------------------------------------------- Login --------------------------------
 app.post("/api/login", async (req, res) => {
   try {
     console.log(req.body);
@@ -101,7 +101,7 @@ app.post("/api/login", async (req, res) => {
     res.status(400).send({ success: false, message: error.message });
   }
 });
-
+//! ---------------------------------------------------- Cart ---------------------------------
 app.put("/api/cart", async (req, res) => {
   try {
     const { userId, productId } = req.query;
@@ -112,7 +112,7 @@ app.put("/api/cart", async (req, res) => {
     console.log(error);
   }
 });
-
+//! ---------------------------------------------------- Orders --------------------------------
 app.post("/api/all", async (req, res) => {
   try {
     const order = req.body;

@@ -22,6 +22,7 @@ td {
 body {
   background: linear-gradient(to right, lightblue, black);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 30px;
 }
 
 .btn-buy {
@@ -99,7 +100,7 @@ body {
   text-decoration: none;
   width: 7em;
   z-index: 2;
-  margin-left: 85%;
+  margin-left: 75%;
 }
 
 .btn-logout:hover {
@@ -290,7 +291,9 @@ input {
 .price-td-cart {
   display: flex;
   justify-self: center;
+  vertical-align: middle;
   align-items: center;
+  text-align: center;
   background: linear-gradient(to right, white, silver);
   color: black;
   font-weight: bold;
@@ -420,4 +423,44 @@ figure {
 .h1-orders {
   margin-left: 30%;
   margin-bottom: 10px;
+}
+
+.btn-appstore {
+  height: 50px;
+  width: 150px;
+}
+
+.btn-googleplay {
+  width: 170px;
+  height: 50px;
+}
+
+.orderId-td {
+  padding: 20px;
+  color: #00a84f;
+}
+
+.order-user-td {
+  padding: 20px;
+  color: #00bfff;
+}
+
+.order-products-td {
+  padding: 20px;
+  color: #e55c8a;
+}
+
+.orders-main {
+  max-width: 1000px;
+  width: 100%;
+  max-height: 400px;
+  background-color: var(--bg-main);
+  box-shadow: 0 0 7px 7px rgb(0 0 0 / 20%);
+  border-radius: 15px;
+  color: white;
+  padding: 20px;
+  margin: 0 10px;
+  overflow-y: auto;
+  scrollbar-width: auto;
+  scrollbar-color: grey white;
 }
